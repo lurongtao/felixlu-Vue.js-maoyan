@@ -1,5 +1,5 @@
-border($border-width = 1px, $border-color = #ccc, $border-style = solid, $radius = null)
-    // 为边框位置提供定位参考
+border($border-width = 1px, $border-color = #ccc, $border-style = solid, $radius = 0)
+  // 为边框位置提供定位参考
   position: relative
 
   if $border-width == null
@@ -40,4 +40,5 @@ border($border-width = 1px, $border-color = #ccc, $border-style = solid, $radius
       transform: scale(.33333)
       if $radius != null
         border-radius: $radius * 3
+        
     transform-origin: 0 0

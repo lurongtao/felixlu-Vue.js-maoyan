@@ -2,7 +2,7 @@
   <home></home>
 </template>
 <script>
-import Home from "@/views/home/Home";
+import Home from "@/pages/Home"
 export default {
   name: "App",
   components: {
@@ -11,5 +11,4 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
-@import '';
 </style>

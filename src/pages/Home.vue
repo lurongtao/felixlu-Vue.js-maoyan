@@ -1,23 +1,31 @@
 <template>
-  <div>
+  <div class="home-container">
     <Header></Header>
-    <TabContainer></TabContainer>
+    <main>
+      <router-view></router-view>
+    </main>
     <Tabbar></Tabbar>
   </div>
 </template>
 <script>
-import Header from "./Header";
-import TabContainer from "./TabContainer";
-import Tabbar from "./Tabbar";
+import '@/assets/styles/reset.css'
+import Header from '@/components/layout/Header'
+import Tabbar from '@/components/layout/Tabbar'
 export default {
   name: "Home",
   components: {
     Header,
-    TabContainer,
     Tabbar
   }
 };
 </script>
+
 <style lang="stylus" scoped>
+.home-container
+  height 100%
+  display flex
+  flex-direction column
+  main
+    flex 1
 </style>
 
