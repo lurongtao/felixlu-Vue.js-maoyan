@@ -35,6 +35,7 @@ var x = 3;
 
 nav
   height .48rem
+  position static
   ul
     height 100%
     display flex

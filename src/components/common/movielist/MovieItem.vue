@@ -1,28 +1,28 @@
 <template>
   <div class="item">
     <div class="main-block">
-      <div class="avatar" sort-flag="">
+      <div class="avatar">
         <div class="default-img-bg">
-          <img src="https://p0.meituan.net/128.180/movie/ef18d29a6f6f5841f4a2dfdbcfd60a4b826961.jpg" onerror="this.style.visibility='hidden'">		
+          <img :src="movie.img | replaceWH('128.180')" />
         </div>
       </div> 
       <div class="mb-outline-b content-wrapper">
         <div class="column content">
           <div class="box-flex movie-title">
-            <div class="title line-ellipsis v3dimax_title">铁血战士</div>
-            <span class="version v3d imax"></span>
+            <div class="title line-ellipsis v3dimax_title">{{ movie.nm }}</div>
+            <span class="version" :class="movie.version"></span>
           </div>
           <div class="detail column">
             <div class="score line-ellipsis"> 
               <span class="score-suffix">观众评 </span>
-              <span class="grade">7.5</span>
+              <span class="grade">{{ movie.sc }}</span>
             </div>
-            <div class="actor line-ellipsis">主演: 波伊德·霍布鲁克,奥立薇娅·玛恩,伊冯娜·斯特拉霍夫斯基</div>
-            <div class="show-info line-ellipsis">今天204家影院放映3203场</div>
+            <div class="actor line-ellipsis">主演: {{ movie.star }}</div>
+            <div class="show-info line-ellipsis">{{ movie.showInfo }}</div>
           </div>
         </div>
         <div class="button-block">
-          <movie-item-button class="pre">预售</movie-item-button>
+          <movie-item-button :class="{ pre: movie.preShow }">{{ movie.preShow | preShowText }}</movie-item-button>
         </div>
       </div>
     </div>
@@ -32,8 +32,16 @@
 import MovieItemButton from './MovieItemButton'
 export default {
   name: 'MovieItem',
+  props: {
+    movie: Object
+  },
   components: {
     MovieItemButton
+  },
+  filters: {
+    preShowText (value) {
+      return value ? '预售' : '购票'
+    }
   }
 }
 </script>

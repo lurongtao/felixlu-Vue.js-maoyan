@@ -10,8 +10,8 @@
     </div>
     <div class="search-entry"><i class="yo-ico">&#xf067;</i></div>
   </nav>
-  <section>
-    <movie-list></movie-list>
+  <section id="movie-list">
+    <movie-list :inTheaterData="inTheaterData"></movie-list>
   </section>
 </div>
 </template>
@@ -24,7 +24,7 @@ export default {
 
   data () {
     return {
-      movieList: []
+      inTheaterData: []
     }
   },
 
@@ -33,10 +33,11 @@ export default {
   },
 
   async mounted () {
+    // 获取数据
     let result = await http({
       url: '/ajax/movieOnInfoList'
     })
-    this.movieList = result.data.movieList
+    this.inTheaterData = result.data
   } 
 }
 </script>
@@ -57,6 +58,7 @@ div
       display flex
       flex-direction row
       width 2.08rem
+      flex 3
       .hot-item
         color #666
         flex 1
@@ -79,6 +81,7 @@ div
       font-weight 100
       align-items center
       margin-left .15rem
+      padding-left 0
       i
         color #999
         line-height .15rem
@@ -93,5 +96,6 @@ div
       padding-top .05rem
   section
     flex 1
+    overflow hidden
 </style>
 

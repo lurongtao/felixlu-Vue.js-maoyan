@@ -1,9 +1,11 @@
 import axios from 'axios'
-const http = ({url, method='GET', data=null}) => {
+const http = ({url, method='GET', data=null, params=null}) => {
+  // console.log(params)
   return axios({
     url,
     method,
-    data
+    data,
+    params
   })
     .then((result) => {
       return result
