@@ -1,20 +1,14 @@
 import axios from 'axios'
-const http = ({url, method='GET', data=null, params=null}) => {
-  // console.log(params)
+export default ({method, url, params}) => {
   return axios({
-    url,
     method,
-    data,
+    url,
     params
   })
-    .then((result) => {
-      return result
-    })
-    .catch((err) => {
-      return err
-    })
-}
-
-export {
-  http
+  .then(result => {
+    return result.data
+  })
+  .catch(error => {
+    return error
+  })
 }

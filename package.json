@@ -6,7 +6,6 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
   },
-  "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
     "better-scroll": "^1.13.2",

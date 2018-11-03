@@ -1,32 +1,36 @@
 <template>
-  <div class="home-container">
+  <div class="home-wrap">
     <Header></Header>
     <main>
-      <router-view></router-view>
+      <movies></movies>
     </main>
-    <Tabbar></Tabbar>
+    <TabBar></TabBar>
   </div>
 </template>
+
 <script>
-import '@/assets/styles/reset.css'
-import Header from '@/components/layout/Header'
-import Tabbar from '@/components/layout/Tabbar'
+import Header from 'components/layout/Header'
+import TabBar from 'components/layout/TabBar'
+import Movies from 'pages/movies/Movies'
+
 export default {
-  name: "Home",
   components: {
     Header,
-    Tabbar
+    TabBar,
+    Movies
   }
-};
+}
 </script>
 
 <style lang="stylus" scoped>
-.home-container
+.home-wrap
   height 100%
   display flex
   flex-direction column
+  background #fff
   main
     flex 1
     overflow hidden
 </style>
+
 

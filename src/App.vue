@@ -1,15 +1,18 @@
 <template>
-  <home></home>
+  <Home></Home>
 </template>
+
 <script>
-import './utils/filter.js'
-import Home from "@/pages/Home"
+import '@/assets/styles/reset.styl'
+import Home from './pages/Home'
+import 'utils/filter'
+
 export default {
-  name: "App",
   components: {
     Home
   }
 }
 </script>
-<style lang="stylus" scoped>
+
+<style lang="stylus">
 </style>

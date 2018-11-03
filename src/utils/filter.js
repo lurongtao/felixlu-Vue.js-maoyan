@@ -1,4 +1,5 @@
 import Vue from 'vue'
-Vue.filter('replaceWH', function (value, size) {
-  return value.replace(/w\.h/, size)
+
+Vue.filter('replaceWH', (value, wh) => {
+  return value.replace('w.h', wh)
 })
