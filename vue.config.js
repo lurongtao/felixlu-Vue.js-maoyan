@@ -17,12 +17,7 @@ module.exports = {
     proxy: {
       '/ajax': {
         target: 'http://m.maoyan.com',
-        changeOrigin: true,
-        headers: {
-          referer: 'http://m.maoyan.com',
-          host: 'm.maoyan.com'
-        },
-        hostRewrite: 'm.maoyan.com'
+        changeOrigin: true
       }
     }
   }
