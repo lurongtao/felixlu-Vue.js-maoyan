@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import '@/assets/styles/reset.styl'
-import Home from './pages/Home'
+import 'styles/reset.styl'
+import Home from 'pages/Home'
 import 'utils/filter'
 
 export default {

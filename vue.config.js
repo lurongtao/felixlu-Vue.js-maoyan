@@ -1,16 +1,16 @@
 const path = require('path')
 
 function resolve (url) {
-  return path.resolve(__dirname, url)
+  return path.join(__dirname, url)
 }
 
 module.exports = {
   chainWebpack: (config) => {
     config.resolve.alias
-      .set('components', resolve('./src/components'))
-      .set('styles', resolve('./src/assets/styles'))
-      .set('pages', resolve('./src/pages'))
-      .set('utils', resolve('./src/utils'))
+      .set('components', resolve('src/components'))
+      .set('styles', resolve('src/assets/styles'))
+      .set('pages', resolve('src/pages'))
+      .set('utils', resolve('src/utils'))
   },
 
   devServer: {
