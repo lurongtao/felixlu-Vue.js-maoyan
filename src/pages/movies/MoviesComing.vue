@@ -2,13 +2,13 @@
   <div class="page-wrap">
 		<div class="tab-block">
 			<div class="tab-content">
-        <div class="page f-hot active" id="movie-coming-scroll">
-          <div class="list-wrap">
-            <div class="most-expected">
-              <p class="title">近期最受期待</p>
-              <div class="most-expected-list">
+				<div class="page f-hot active" id="movie-scroll">
+					<div class="list-wrap" style="margin-top: 0px;">
+						<div class="most-expected">
+							<p class="title">近期最受期待</p>
+							<div class="most-expected-list" id="most-expected-scroll">
                 <div class="most-expected-list-wrap">
-                  <div class="expected-item" v-for="item of expected" :key="item.id">
+                  <div v-for="item of mostExpected" :key="item.id" class="expected-item">
                     <div class="poster default-img-bg">
                       <img :src="item.img | replaceWH('170.230')" onerror="this.style.visibility='hidden'">
                       <span class="wish-bg"></span>
@@ -22,31 +22,26 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="coming-list">
-              <div v-for="(movies, key) of groupedMovies" :key="key">
-                <p class="group-date">{{ key }}</p>
-                <movie-list from="coming" :movies="movies"></movie-list>
-              </div>
-            </div>
+						</div>
+            <movie-list :resource="comingResource"></movie-list>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
-import { Indicator } from 'mint-ui'
-import http from 'utils/http'
-import _ from 'lodash'
-import { scroll } from 'utils/scroll'
 import MovieList from 'components/common/movie-list/MovieList'
+import http from 'utils/http'
+import { Indicator } from 'mint-ui'
+import { scroll } from 'utils/scroll'
+
 export default {
   data () {
     return {
-      movies: [],
-      expected: []
+      comingResource: null,
+      mostExpected: []
     }
   },
 
@@ -54,51 +49,35 @@ export default {
     MovieList
   },
 
-  computed: {
-    groupedMovies () {
-      return _(this.movies).groupBy(item => item.comingTitle).value()
-    }
-  },
+  async beforeCreate () {
+    Indicator.open({
+      text: '加载中...',
+      spinnerType: 'fading-circle'
+    })
 
-  async mounted () {
-    this.mostExpected = await http({
+    this.comingResource = await http({
+      method: 'get',
+      url: '/ajax/comingList'
+    })
+
+    let mostExpectedResource = (await http({
       method: 'get',
       url: '/ajax/mostExpected'
+    }))
+    this.mostExpected = mostExpectedResource.coming
+    
+    // 横向scroll
+    scroll({
+      el: '#most-expected-scroll',
+      data: this.mostExpected,
+      horizontal: true,
+      paging: mostExpectedResource.paging,
+      url: '/ajax/mostExpected',
+      vm: this
     })
-
-    this.comingList = await http({
-      method: 'get',
-      url: '/ajax/comingList',
-      params: {
-        ci: 1,
-        limit: 10
-      }
-    })
-
-    this.movies = this.comingList.coming
-    this.expected = this.mostExpected.coming
 
     // 为了演示Indicator 唯一实例的问题
     Indicator.close()
-
-    // expected 滚动
-    scroll({
-      el: '.most-expected-list', 
-      url: '/ajax/mostExpected', 
-      paging: this.mostExpected.paging, 
-      vm: this, 
-      data: this.expected,
-      type: 'horizontal'
-    })
-
-    // coming 滚动
-    scroll({
-      el: '#movie-coming-scroll', 
-      url: '/ajax/moreComingList', 
-      movieIds: _.chunk(this.comingList.movieIds.slice(10), 10), 
-      vm: this, 
-      data: this.movies
-    })
   }
 }
 </script>
@@ -108,6 +87,8 @@ export default {
 @import '~styles/ellipsis.styl'
 .most-expected-list-wrap
   width max-content
+.most-expected
+  height 2.24rem
 .line-ellipsis
   ellipsis()
 .page-wrap
@@ -121,4 +102,5 @@ export default {
         height 100%
         padding-right .15rem
 </style>
+
 

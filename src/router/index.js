@@ -9,44 +9,57 @@ import MoviesComing from 'pages/movies/MoviesComing'
 import Theaters from 'pages/theaters/Theaters'
 import Profile from 'pages/profile/Profile'
 
+import CityPicker from 'pages/citypicker/CityPicker'
+
+import Home from 'pages/Home'
+
 const routes = [
   {
     path: '/',
-    redirect: '/movies'
+    redirect: '/home'
   },
   {
-    path: '/movies',
-    redirect: '/movies/intheater'
+    path: '/cities',
+    component: CityPicker
   },
   {
-    name: 'movies',
-    path: '/movies',
-    component: Movies,
+    path: '/home',
+    component: Home,
+    redirect: '/home/movies/intheater',
     children: [
       {
-        name: 'intheater',
-        path: 'intheater',
-        meta: { index: 1 },
-        component: MoviesInTheater
+        name: 'movies',
+        path: 'movies',
+        component: Movies,
+        redirect: '/home/movies/intheater',
+        children: [
+          {
+            name: 'intheater',
+            path: 'intheater',
+            component: MoviesInTheater,
+            meta: 1
+          },
+          {
+            name: 'coming',
+            path: 'coming',
+            component: MoviesComing,
+            meta: 2
+          }
+        ]
       },
       {
-        name: 'coming',
-        path: 'coming',
-        meta: { index: 2 },
-        component: MoviesComing
+        name: 'theaters',
+        path: 'theaters',
+        component: Theaters
+      },
+      {
+        name: 'profile',
+        path: 'profile',
+        component: Profile
       }
     ]
-  },
-  {
-    name: 'theaters',
-    path: '/theaters',
-    component: Theaters
-  },
-  {
-    name: 'profile',
-    path: '/profile',
-    component: Profile
   }
+  
 ]
 
 const router = new VueRouter({

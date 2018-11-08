@@ -1,18 +1,11 @@
 <template>
-  <Home></Home>
+  <router-view></router-view>
 </template>
 
 <script>
-import 'styles/reset.styl'
-import Home from 'pages/Home'
+import '@/assets/styles/reset.styl'
 import 'utils/filter'
 
 export default {
-  components: {
-    Home
-  }
 }
 </script>
-
-<style lang="stylus">
-</style>

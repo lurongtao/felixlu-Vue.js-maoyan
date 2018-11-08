@@ -5,6 +5,7 @@
       <transition name="fade" mode="out-in">
         <router-view></router-view>
       </transition>
+      <vue-progress-bar></vue-progress-bar>
     </main>
     <TabBar></TabBar>
   </div>
@@ -18,6 +19,15 @@ export default {
   components: {
     Header,
     TabBar
+  },
+  created () {
+    this.$router.beforeEach((to, from, next) => {
+      this.$Progress.start()
+      next()
+    })
+    this.$router.afterEach((to, from) => {
+      this.$Progress.finish()
+    })
   }
 }
 </script>
